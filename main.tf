@@ -91,6 +91,20 @@ resource "azurerm_network_security_rule" "allow_http_sg" {
   network_security_group_name = azurerm_network_security_group.nsg-lab-jde.name
 }
 
+resource "azurerm_network_security_rule" "allow_http8080_sg" {
+  name                        = "allow_http_sg"
+  priority                    = 102
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "8080"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.rg-lab-jde.name
+  network_security_group_name = azurerm_network_security_group.nsg-lab-jde.name
+}
+
 resource "azurerm_network_interface_security_group_association" "sga-lab-jde" {
   network_interface_id      = azurerm_network_interface.nic-lab-jde.id
   network_security_group_id = azurerm_network_security_group.nsg-lab-jde.id
